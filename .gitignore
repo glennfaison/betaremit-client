@@ -71,3 +71,7 @@ package-lock.json
 
 # MacOS system files
 **/.DS_Store
+
+# build files
+build
+build/**
