@@ -10,7 +10,7 @@ function ProductDetailsModal(props) {
   const { updateProductById, ...otherProps } = props;
 
   return (
-    <Modal {...otherProps} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal {...otherProps} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
 
       {/* Display only if editMode === false */}
       {

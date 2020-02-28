@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import NavBar from '../../components/NavBar';
-import { fetchAllProducts } from '../../store/actions';
 
-// import { Routes } from '../../constants';
-// import { Link } from 'react-router-dom';
-import './index.css'
+import { fetchAllProducts, deleteProductById } from '../../store/actions';
+import NavBar from '../../components/NavBar';
 import ProductListItem from '../../components/ProductListItem';
+import GenericModal from '../../components/GenericModal';
+import CreateProductModal from '../../components/CreateProductModal';
+
+import './index.css'
 
 class Products extends React.Component {
   state = {
     searchText: '',
+    deleteActionModal: false,
+    createActionModal: false,
   };
 
   UNSAFE_componentWillMount() {
@@ -60,13 +63,18 @@ class Products extends React.Component {
                 <div className="form-group d-flex justify-content-between">
 
                   {/* Add button */}
-                  <button type="button" className="btn btn-default">
+                  <button type="button" className="btn btn-default"
+                    onClick={() => this.setState({ createActionModal: true })}>
                     <i className="fas fa-plus fa-lg"></i> &nbsp; <span>Add</span>
                   </button>
                   {/* End Add button */}
 
                   {/* Delete button */}
-                  <button type="button" className="btn btn-default">
+                  <button type="button" className="btn btn-default"
+                    onClick={() => {
+                      const selectedProducts = this.props.productList.data.filter(i => i.isChecked);
+                      this.setState({ deleteActionModal: selectedProducts.length > 0 });
+                    }}>
                     <i className="fas fa-trash-alt fa-lg"></i> &nbsp; <span>Delete</span>
                   </button>
                   {/* End Delete button */}
@@ -79,6 +87,23 @@ class Products extends React.Component {
           </div>
         </div>
 
+
+        <GenericModal
+          show={this.state.deleteActionModal}
+          onHide={() => this.setState({ deleteActionModal: false })}
+          message="Are you sure you want to delete the selected items? This action cannot be reversed!"
+          deleteSelection={() => {
+            const products = this.props.productList.data.filter(i => i.isChecked);
+            products.forEach(i => this.props.deleteProductById(i.id));
+          }}
+        />
+
+        <CreateProductModal
+          show={this.state.createActionModal}
+          onHide={() => this.setState({ createActionModal: false })}
+        />
+
+
       </div>
     );
   }
@@ -90,5 +115,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 export default connect(mapStateToProps, {
-  fetchAllProducts,
+  fetchAllProducts: fetchAllProducts,
+  deleteProductById: deleteProductById,
 })(Products);

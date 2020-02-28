@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logOut } from '../../store/actions';
-import { Settings } from '../../constants';
+import { Settings, Routes } from '../../constants';
 
 
 class NavBar extends React.Component {
@@ -21,28 +21,30 @@ class NavBar extends React.Component {
               <li className="nav-item active">
                 <a className="nav-link" href=".">Landing<span className="sr-only">(current)</span></a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href=".">Link</a>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="." id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">Dropdown</a>
-                <div className="dropdown-menu" aria-labelledby="dropdownId">
-                  <a className="dropdown-item" href=".">Action 1</a>
-                  <a className="dropdown-item" href=".">Action 2</a>
-                </div>
-              </li>
+              {/*
+                <li className="nav-item">
+                  <a className="nav-link" href=".">Link</a>
+                </li>
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="." id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">Dropdown</a>
+                  <div className="dropdown-menu" aria-labelledby="dropdownId">
+                    <a className="dropdown-item" href=".">Action 1</a>
+                    <a className="dropdown-item" href=".">Action 2</a>
+                  </div>
+                </li>
+              */}
             </ul>
             <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="." id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">Glenn Faison</a>
+                  aria-expanded="false">{this.props.thisUser.data.firstName + ' ' + this.props.thisUser.data.otherNames}</a>
                 <div className="dropdown-menu" aria-labelledby="dropdownId">
-                  <Link className="dropdown-item" to="/login"
+                  <Link className="dropdown-item" to={Routes.login}
                     onClick={() => logOut()}>
                     Sign Out
                   </Link>
-                  <a className="dropdown-item" href=".">Check list</a>
+                  <a className="dropdown-item" href={Routes.products}>Product list</a>
                 </div>
               </li>
             </ul>

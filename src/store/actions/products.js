@@ -44,7 +44,7 @@ export const updateProductById = (newProduct) => (dispatch) => {
 export const deleteProductById = (id) => (dispatch) => {
   dispatch({ type: ActionTypes.DeleteProductByIdAttempt });
   ProductsResource.del(id).then(res => {
-    dispatch({ type: ActionTypes.DeleteProductByIdSuccess, payload: res.body.data });
+    dispatch({ type: ActionTypes.DeleteProductByIdSuccess, payload: id });
   }).catch(err => {
     dispatch({ type: ActionTypes.DeleteProductByIdFailure, payload: null });
   });

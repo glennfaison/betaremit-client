@@ -16,7 +16,7 @@ function ProductListItem(props) {
     <div className="product-list-item d-flex justify-content-stretch align-content-stretch">
       <div className="checkbox justify-content-center"onClick={() => {
           props.checkProduct(props.index);
-          toggleCheck(!isChecked);console.log(isChecked)
+          toggleCheck(!isChecked);
         }}>
         <span className="position-relative">
           <input type="checkbox" className="form-control-lg"
@@ -45,6 +45,7 @@ function ProductListItem(props) {
         product={product}
         index={props.index}
       />
+
 
     </div>
   );
