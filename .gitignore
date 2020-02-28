@@ -68,3 +68,6 @@ api-docs/
 
 # misc
 package-lock.json
+
+# MacOS system files
+**/.DS_Store
