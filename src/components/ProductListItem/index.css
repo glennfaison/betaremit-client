@@ -18,9 +18,8 @@
   flex-grow: 1;
 }
 
-.body>a {
-  text-decoration: none;
-  color: unset;
+.clickable {
+  cursor: pointer !important;
 }
 
 .product-list-item {

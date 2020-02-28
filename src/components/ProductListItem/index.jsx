@@ -14,10 +14,10 @@ function ProductListItem(props) {
   const [isChecked, toggleCheck] = React.useState(product.isChecked);
   return (
     <div className="product-list-item d-flex justify-content-stretch align-content-stretch">
-      <div className="checkbox justify-content-center"onClick={() => {
-          props.checkProduct(props.index);
-          toggleCheck(!isChecked);
-        }}>
+      <div className="checkbox justify-content-center" onClick={() => {
+        props.checkProduct(props.index);
+        toggleCheck(!isChecked);
+      }}>
         <span className="position-relative">
           <input type="checkbox" className="form-control-lg"
             defaultChecked={isChecked} />
@@ -25,12 +25,10 @@ function ProductListItem(props) {
         </span>
       </div>
 
-      <div className="body p-1">
-        <a href={'#dialog'} onClick={() => setModalShow(true)}>
-          <b>{product.name}</b>
-          <i className="d-block">{product.type}</i>
-          <small className="small d-block">$ {product.price}</small>
-        </a>
+      <div className="body p-1 clickable" onClick={() => setModalShow(true)}>
+        <b>{product.name}</b>
+        <i className="d-block">{product.type}</i>
+        <small className="small d-block">$ {product.price}</small>
       </div>
 
       <div className="rating p-2">
