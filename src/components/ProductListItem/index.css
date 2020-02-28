@@ -1,0 +1,29 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  padding-left: .5em;
+  padding-right: .5em;
+  min-height: 50px;
+}
+
+.rating {
+  min-width: 4em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.body {
+  flex-grow: 1;
+}
+
+.body>a {
+  text-decoration: none;
+  color: unset;
+}
+
+.product-list-item {
+  outline: solid black 1px;
+  background-color: lightgrey;
+}

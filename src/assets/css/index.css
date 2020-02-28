@@ -1,0 +1,34 @@
+@import './themify-icons/themify-icons.css';
+@import './notifications.css';
+
+.fill-screen{
+    background-color: lightgreen;
+    height: calc(100vh);
+    width: 100%;
+}
+
+.board {
+    --cell-length: 75px;
+    --cell-border:1px;
+    --box-length: calc(3 * ((1 * var(--cell-border)) + var(--cell-length)));
+    --box-border: 1px;
+    --board-length: calc(3 * ((1 * var(--box-border)) + var(--box-length)));
+    --board-border:1px;
+    border: solid black var(--board-border);
+    width: var(--board-length);
+    height: var(--board-length);
+    display: block;
+}
+.box {
+    float: left;
+    display: block;
+    border: solid black var(--box-border);
+    width: var(--box-length);
+    height: var(--box-length);
+}
+.cell {
+    float: left;
+    border: solid black var(--cell-border);
+    width: var(--cell-length);
+    height: var(--cell-length);
+}

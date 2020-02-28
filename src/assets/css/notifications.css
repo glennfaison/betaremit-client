@@ -1,0 +1,31 @@
+.notification-container{
+  margin-left: auto;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+.notification-container > span > .notification-success{
+  background-color: var(--success);
+}
+.notification-container > span > .notification-error{
+  background-color: var(--danger);
+}
+.notification-container > span > .notification{
+  padding: 5px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+.notification-container > span > .notification::before{
+  content: '\e697';
+  font-size: 150%;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+.notification-container > span > .notification > .notification-message > .title{
+  font-weight: 900;
+  font-size: medium;
+}
+.notification-container > span > .notification > .notification-message > .message{
+  font-weight: normal;
+  font-size: small;
+}
