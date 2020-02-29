@@ -7,7 +7,7 @@ const DefaultState = {
 
 const productList = (state = DefaultState, action) => {
   const type = action.type || undefined;
-  const lst = [...state.data];
+  let lst = [...state.data];
   switch (type) {
     case ActionTypes.FetchAllProductsAttempt:
       return { waiting: true, data: [...state.data] };
@@ -47,25 +47,44 @@ const productList = (state = DefaultState, action) => {
 
 
 
-    case ActionTypes.DeleteProductByIdAttempt:
+    case ActionTypes.DeleteProductByIdsAttempt:
       return { waiting: true, data: [...state.data] };
 
-    case ActionTypes.DeleteProductByIdSuccess:
-      let id = action.payload;
-      const deleteIndex = state.data.findIndex(i => i.id === id);
-      lst.splice(deleteIndex, 1);
+    case ActionTypes.DeleteProductByIdsSuccess:
+      let ids = action.payload;
+      lst = state.data.filter(prod => !ids.includes(prod.id))
       return { waiting: false, data: [...lst] };
 
-    case ActionTypes.DeleteProductByIdFailure:
+    case ActionTypes.DeleteProductByIdsFailure:
       return { waiting: false, data: [...state.data] };
 
 
 
     case ActionTypes.CheckProduct:
-      const toggledProduct = { ...state.data[action.payload] };
-      toggledProduct.isChecked = !toggledProduct.isChecked;
-      lst.splice(action.payload, 1, toggledProduct);
-      return { waiting: false, data: [...lst] };
+      lst = [...state.data];
+      lst.forEach((prod, i) => {
+        if (action.payload.includes(prod.id)) {
+          lst[i].isChecked = !lst[i].isChecked;
+        }
+      })
+      return { waiting: false, data: lst };
+
+    case ActionTypes.UncheckAllProducts:
+      lst = [...state.data];
+      lst.forEach((prod, i) => ({ ...prod, isChecked: false }))
+      return { waiting: false, data: lst };
+
+    case ActionTypes.CheckAllProducts:
+      lst = [...state.data];
+      lst.forEach((prod, i) => ({ ...prod, isChecked: true }))
+      return { waiting: false, data: lst };
+
+    case ActionTypes.ToggleCheckAllProducts:
+      lst = [...state.data];
+      // Uncheck all if ANY is checked, and check all otherwise
+      const toggleValue = !lst.some(prod => prod.isChecked);
+      lst.forEach((prod, i) => ({ ...prod, isChecked: toggleValue }))
+      return { waiting: false, data: lst };
 
 
 

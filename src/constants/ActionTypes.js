@@ -31,9 +31,12 @@ export const ActionTypes = {
   UpdateProductByIdSuccess: "UpdateProductByIdSuccess",
   UpdateProductByIdFailure: "UpdateProductByIdFailure",
 
-  DeleteProductByIdAttempt: "DeleteProductByIdAttempt",
-  DeleteProductByIdSuccess: "DeleteProductByIdSuccess",
-  DeleteProductByIdFailure: "DeleteProductByIdFailure",
+  DeleteProductByIdsAttempt: "DeleteProductByIdsAttempt",
+  DeleteProductByIdsSuccess: "DeleteProductByIdsSuccess",
+  DeleteProductByIdsFailure: "DeleteProductByIdsFailure",
 
   CheckProduct: "CheckProduct",
+  UncheckAllProducts: "UncheckAllProducts",
+  CheckAllProducts: "CheckAllProducts",
+  ToggleCheckAllProducts: "ToggleCheckAllProducts",
 };

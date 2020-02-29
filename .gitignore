@@ -65,6 +65,9 @@ api-docs/
 
 # Editors
 .vscode
+reactide.config.js
+reactide.js
+
 
 # misc
 package-lock.json

@@ -41,18 +41,31 @@ export const updateProductById = (newProduct) => (dispatch) => {
   });
 };
 
-export const deleteProductById = (id) => (dispatch) => {
-  dispatch({ type: ActionTypes.DeleteProductByIdAttempt });
-  ProductsResource.del(id).then(res => {
-    dispatch({ type: ActionTypes.DeleteProductByIdSuccess, payload: id });
+export const deleteProductById = (...ids) => (dispatch) => {
+  const deletionPromises = ids.map(id => ProductsResource.del(id));
+  dispatch({ type: ActionTypes.DeleteProductByIdsAttempt });
+  Promise.all(deletionPromises).then(res => {
+    dispatch({ type: ActionTypes.DeleteProductByIdsSuccess, payload: ids });
   }).catch(err => {
-    dispatch({ type: ActionTypes.DeleteProductByIdFailure, payload: null });
-  });
+    dispatch({ type: ActionTypes.DeleteProductByIdsFailure, payload: null });
+  }).finally(() => dispatch({ type: ActionTypes.UncheckAllProducts }));
 };
 
 
 
 
-export const checkProduct = (index) => (dispatch) => {
-  dispatch({ type: ActionTypes.CheckProduct, payload: index })
+export const checkProduct = (...ids) => (dispatch) => {
+  dispatch({ type: ActionTypes.CheckProduct, payload: ids })
+};
+
+export const uncheckAllProducts = () => (dispatch) => {
+  dispatch({ type: ActionTypes.UncheckAllProducts })
+};
+
+export const checkAllProducts = () => (dispatch) => {
+  dispatch({ type: ActionTypes.CheckAllProducts })
+};
+
+export const toggleCheckAllProducts = () => (dispatch) => {
+  dispatch({ type: ActionTypes.ToggleCheckAllProducts })
 };

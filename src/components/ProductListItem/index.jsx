@@ -11,16 +11,15 @@ import ProductDetailsModal from '../ProductDetailsModal';
 function ProductListItem(props) {
   const product = props.product;
   const [modalShow, setModalShow] = React.useState(false);
-  const [isChecked, toggleCheck] = React.useState(product.isChecked);
+
   return (
     <div className="product-list-item d-flex justify-content-stretch align-content-stretch">
       <div className="checkbox justify-content-center" onClick={() => {
-        props.checkProduct(props.index);
-        toggleCheck(!isChecked);
+        props.checkProduct(props.product.id);
       }}>
         <span className="position-relative">
           <input type="checkbox" className="form-control-lg"
-            defaultChecked={isChecked} />
+            defaultChecked={props.isChecked} />
           {/*<i className={isChecked ? 'far fa-check-square fa-lg' : 'far fa-square fa-lg'}></i>*/}
         </span>
       </div>
@@ -41,7 +40,6 @@ function ProductListItem(props) {
         show={modalShow}
         onHide={() => setModalShow(false)}
         product={product}
-        index={props.index}
       />
 
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 
-import { fetchAllProducts, deleteProductById } from '../../store/actions';
+import { fetchAllProducts, deleteProductById, uncheckAllProducts } from '../../store/actions';
 import NavBar from '../../components/NavBar';
 import ProductListItem from '../../components/ProductListItem';
 import GenericModal from '../../components/GenericModal';
@@ -19,6 +19,7 @@ class Products extends React.Component {
 
   UNSAFE_componentWillMount() {
     this.props.fetchAllProducts();
+    this.props.uncheckAllProducts();
   }
 
   search = (txt) => {
@@ -55,7 +56,7 @@ class Products extends React.Component {
               <ul className="list-view col-12">
 
                 {/* Item list */}
-                {productList.map((prod, i) => <ProductListItem key={i} index={i} product={prod} />)}
+                {productList.map((prod) => <ProductListItem key={prod.id} product={prod} />)}
                 {/* End item list */}
 
                 {/* Display if there are no list items */}
@@ -117,8 +118,8 @@ class Products extends React.Component {
           onHide={() => this.setState({ deleteActionModal: false })}
           message="Are you sure you want to delete the selected items? This action cannot be reversed!"
           deleteSelection={() => {
-            const products = this.props.productList.data.filter(i => i.isChecked);
-            products.forEach(i => this.props.deleteProductById(i.id));
+            const productIds = this.props.productList.data.filter(i => i.isChecked).map(i => i.id);
+            this.props.deleteProductById(...productIds);
           }}
         />
 
@@ -141,4 +142,5 @@ const mapStateToProps = (state, ownProps) => ({
 export default connect(mapStateToProps, {
   fetchAllProducts: fetchAllProducts,
   deleteProductById: deleteProductById,
+  uncheckAllProducts: uncheckAllProducts,
 })(Products);
