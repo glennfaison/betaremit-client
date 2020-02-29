@@ -12,7 +12,6 @@
     "react-router-redux": "^4.0.8",
     "react-scripts": "2.0.5",
     "react-star-ratings": "^2.3.0",
-    "reactide-config": "^1.0.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.1",
@@ -23,8 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "reactide-server": "webpack-dev-server --config reactide.config.js --mode development --hot"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
