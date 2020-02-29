@@ -33,11 +33,17 @@ export const createProduct = (product) => (dispatch) => {
  * @param {Product} newProduct must have an `id` key
  */
 export const updateProductById = (newProduct) => (dispatch) => {
+  let { rating, ...otherKeys } = newProduct;
   dispatch({ type: ActionTypes.UpdateProductByIdAttempt });
-  ProductsResource.update(newProduct).then(res => {
-    dispatch({ type: ActionTypes.UpdateProductByIdSuccess, payload: res.body.data });
-  }).catch(err => {
-    dispatch({ type: ActionTypes.UpdateProductByIdFailure, payload: null });
+
+  // Add rating
+  ProductsResource.addRating(otherKeys.id, rating).then(() => {
+    // Update the other keys of th product
+    ProductsResource.update(otherKeys).then(res => {
+      dispatch({ type: ActionTypes.UpdateProductByIdSuccess, payload: res.body.data });
+    }).catch(err => {
+      dispatch({ type: ActionTypes.UpdateProductByIdFailure, payload: null });
+    });
   });
 };
 

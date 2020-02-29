@@ -1,12 +1,15 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import StarRatings from 'react-star-ratings';
 
 import { updateProductById } from '../../store/actions';
 
 function ProductDetailsModal(props) {
   const [editMode, toggleEdit] = React.useState(false);
-  const product = {...props.product};
+  let [yourRating, setYourRating] = React.useState(0);
+
+  const product = { ...props.product };
   const { updateProductById, ...otherProps } = props;
 
   return (
@@ -16,6 +19,21 @@ function ProductDetailsModal(props) {
       {
         editMode ||
         <Modal.Body className="text-center">
+
+          {/* Star Rating */}
+          <div><strong>Rating</strong></div>
+          <div>
+            <StarRatings rating={props.product.rating}
+              starRatedColor="blue"
+              numberOfStars={5}
+              name="rating"
+              starDimension="2em"
+              starSpacing=".2em"
+              isAggregateRating={false}
+              isSelectable={false}
+            />
+          </div>
+          {/* End Star Rating */}
 
           {/* Name */}
           <div><strong>Name</strong></div>
@@ -43,7 +61,7 @@ function ProductDetailsModal(props) {
 
           <div className="checkbox d-flex justify-content-center">
             <label>
-              {props.product.available ? 'Available' : 'Unavailable'}
+              This product is {props.product.available ? 'Available' : 'Unavailable'} at the moment
             </label>
           </div>
 
@@ -61,6 +79,22 @@ function ProductDetailsModal(props) {
       {
         editMode &&
         <Modal.Body className="text-center">
+
+          {/* Star Rating */}
+          <div><strong>Rating</strong></div>
+          <div>
+            <StarRatings rating={yourRating}
+              starRatedColor="blue"
+              changeRating={setYourRating}
+              numberOfStars={5}
+              name="rating"
+              starDimension="2em"
+              starSpacing=".2em"
+              isAggregateRating={false}
+              isSelectable={true}
+            />
+          </div>
+          {/* End Star Rating */}
 
           {/* Name */}
           <div><strong>Name</strong></div>
@@ -96,8 +130,11 @@ function ProductDetailsModal(props) {
           <div className="d-flex justify-content-between pt-3">
             <button className="btn btn-outline btn-outline-primary"
               onClick={() => {
+                product.rating = yourRating;
                 props.updateProductById(product);
                 props.onHide();
+                setYourRating(0);
+                toggleEdit(!editMode);
               }}>
               Save
             </button>
