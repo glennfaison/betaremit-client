@@ -6,7 +6,8 @@ import StarRatings from 'react-star-ratings';
 import { updateProductById } from '../../store/actions';
 
 function ProductDetailsModal(props) {
-  const [editMode, toggleEdit] = React.useState(false);
+  let [editMode, toggleEdit] = React.useState(false);
+  let [available, toggleAvailability] = React.useState(!!props.product.available);
   let [yourRating, setYourRating] = React.useState(0);
 
   const product = { ...props.product };
@@ -122,8 +123,11 @@ function ProductDetailsModal(props) {
 
           <div className="checkbox d-flex justify-content-center">
             <label>
-              <input type="checkbox" className="form-check form-check-inline" defaultChecked={props.product.available} onClick={e => product.available = !e.target.value} />
-              {props.product.available ? 'Available' : 'Unavailable'}
+              <input type="checkbox" className="form-check form-check-inline"
+                value={available}
+                checked={available}
+                onChange={e => { toggleAvailability(!JSON.parse(e.target.value)) }} />
+              {available ? 'Available' : 'Unavailable'}
             </label>
           </div>
 
@@ -131,6 +135,7 @@ function ProductDetailsModal(props) {
             <button className="btn btn-outline btn-outline-primary"
               onClick={() => {
                 product.rating = yourRating;
+                product.available = available;
                 props.updateProductById(product);
                 props.onHide();
                 setYourRating(0);
