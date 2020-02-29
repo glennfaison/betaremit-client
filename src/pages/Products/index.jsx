@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
 
 import { fetchAllProducts, deleteProductById } from '../../store/actions';
 import NavBar from '../../components/NavBar';
@@ -56,6 +57,29 @@ class Products extends React.Component {
                 {/* Item list */}
                 {productList.map((prod, i) => <ProductListItem key={i} index={i} product={prod} />)}
                 {/* End item list */}
+
+                {/* Display if there are no list items */}
+                {
+                  (this.props.productList.data.length < 1 && !this.props.productList.waiting) &&
+                  <div className="p-3 text-center bg-light">
+                    <h3>No items found</h3>
+                    <h5>Try adding one</h5>
+                    <i className="fas fa-arrow-down fa-10x"></i>
+                  </div>
+                }
+
+                {/* Display if data is loading */}
+                {
+                  (!!this.props.productList.waiting) &&
+                  <div className="p-3 text-center bg-light">
+                    <h3>
+                      <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+                      <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+                      <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
+                      Your products are loading...
+                    </h3>
+                  </div>
+                }
               </ul>
 
               {/* Action button group */}
