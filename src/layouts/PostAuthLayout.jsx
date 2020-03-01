@@ -15,7 +15,7 @@ import { history } from '../store';
 const socket = socketIoClient(Settings.apiRoot);
 
 function PostAuthLayout(props) {
-  if (!props.thisUser.data) {
+  if (!props.thisUser.data && !props.waiting) {
     return (<React.Fragment></React.Fragment>);
   }
 
