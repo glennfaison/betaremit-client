@@ -41,10 +41,7 @@ class PostAuthLayout extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  router: state.router,
-  thisUser: state.thisUser,
-});
+const mapStateToProps = (state, ownProps) => ({});
 
 export default connect(mapStateToProps, {
   fetchThisUser,
