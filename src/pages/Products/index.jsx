@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 
 import { fetchAllProducts, deleteProductById, uncheckAllProducts } from '../../store/actions';
-import NavBar from '../../components/NavBar';
 import ProductListItem from '../../components/ProductListItem';
 import GenericModal from '../../components/GenericModal';
 import CreateProductModal from '../../components/CreateProductModal';
@@ -32,10 +31,6 @@ class Products extends React.Component {
     });
     return (
       <div className="container-fluid">
-
-        {/* Navbar */}
-        <NavBar />
-        {/* Navbar */}
 
         <div className="row no-gutters">
           <div className="col-12 col-lg-6 mx-auto">

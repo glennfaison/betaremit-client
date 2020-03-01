@@ -1,23 +1,14 @@
 import React from 'react';
 import { Switch, Route, Redirect, Router } from 'react-router-dom';
 import { connect } from 'react-redux';
-import socketIoClient from 'socket.io-client';
 
-import { Routes, Settings } from '../constants';
+import { Routes } from '../constants';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import { history } from '../store';
-import { fetchAllProducts } from '../store/actions';
 
 function PreAuthLayout(props) {
-  const socket = socketIoClient(Settings.apiRoot);
-  // If we receive the `productsChanged` event, refresh the product list
-  socket.on('productsChanged', () => {
-    console.log('Products Changed');
-    props.fetchAllProducts();
-  });
-
-  if (localStorage.getItem('betaremit-token')) {
+  if (!!props.thisUser.data) {
     return (<React.Fragment></React.Fragment>);
   }
   return (
@@ -31,8 +22,8 @@ function PreAuthLayout(props) {
   );
 }
 
-const mapStateToProps = (state, ownProps) => ({});
+const mapStateToProps = (state, ownProps) => ({
+  thisUser: state.thisUser,
+});
 
-export default connect(mapStateToProps, {
-  fetchAllProducts: fetchAllProducts,
-})(PreAuthLayout);
+export default connect(mapStateToProps, {})(PreAuthLayout);

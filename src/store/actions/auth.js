@@ -32,6 +32,7 @@ export const fetchThisUser = () => (dispatch) => {
     setToken(res.body.data.token);
     localStorage.setItem("betaremit-token", res.body.data.token);
   }).catch(err => {
+    dispatch(logOut());
     dispatch({ type: ActionTypes.FetchThisUserFailure, payload: null });
   });
 };
@@ -42,7 +43,7 @@ export const signUpWithEmailAndPassword = (user) => (dispatch) => {
     console.log(res);
     dispatch({ type: ActionTypes.SignupSuccess, payload: res.body.data });
     // If registration is successful, initiate login for the user
-    logInWithEmailAndPassword(user)(dispatch);
+    dispatch(logInWithEmailAndPassword(user));
   }).catch(err => {
     dispatch({ type: ActionTypes.SignupFailure, payload: {} });
   });
