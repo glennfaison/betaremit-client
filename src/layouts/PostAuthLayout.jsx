@@ -9,6 +9,7 @@ import { Routes, Settings } from '../constants';
 import Products from '../pages/Products';
 import { fetchThisUser, fetchAllProducts } from '../store/actions';
 import { history } from '../store';
+import NotFound from '../pages/NotFound';
 
 const socket = socketIoClient(Settings.apiRoot, { transports: ['websocket'] });
 
@@ -22,7 +23,6 @@ function PostAuthLayout(props) {
 
   // If we receive the `productsChanged` event, refresh the product list
   socket.on('productsChanged', () => {
-    console.log('Products Changed');
     props.fetchAllProducts();
   });
 
@@ -39,7 +39,7 @@ function PostAuthLayout(props) {
             <Route exact path={Routes.products} component={Products} />
 
             <Route exact path={Routes.error} component={HelloComponent} />
-            <Route exact path={Routes.notFound} component={HelloComponent} />
+            <Route exact path={Routes.notFound} component={NotFound} />
             <Redirect to={Routes.notFound} />
           </Switch>
         </Router>
