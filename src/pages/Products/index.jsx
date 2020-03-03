@@ -57,7 +57,7 @@ class Products extends React.Component {
                 {/* Display if there are no list items */}
                 {
                   (this.props.productList.data.length < 1 && !this.props.productList.waiting) &&
-                  <div className="p-3 text-center bg-light">
+                  <div className="p-3 text-center bg-light empty-list-indicator">
                     <h3>No items found</h3>
                     <h5>Try adding one</h5>
                     <i className="fas fa-arrow-down fa-10x"></i>
@@ -67,7 +67,7 @@ class Products extends React.Component {
                 {/* Display if data is loading */}
                 {
                   (!!this.props.productList.waiting) &&
-                  <div className="p-3 text-center bg-light">
+                  <div className="p-3 text-center bg-light list-loading-indicator">
                     <h3>
                       <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
                       <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />

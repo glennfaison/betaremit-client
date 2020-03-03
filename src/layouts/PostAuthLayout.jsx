@@ -1,13 +1,11 @@
 import React from 'react';
-import { Switch, Route, Redirect, Router } from 'react-router-dom';
+import { Switch, Route, Router, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import socketIoClient from 'socket.io-client';
 
 import HelloComponent from '../components/HelloComponent';
 import NavBar from '../components/NavBar';
 import { Routes, Settings } from '../constants';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
 import Products from '../pages/Products';
 import { fetchThisUser, fetchAllProducts } from '../store/actions';
 import { history } from '../store';
@@ -15,8 +13,11 @@ import { history } from '../store';
 const socket = socketIoClient(Settings.apiRoot);
 
 function PostAuthLayout(props) {
-  if (!props.thisUser.data && !props.waiting) {
-    return (<React.Fragment></React.Fragment>);
+  if (!localStorage.getItem('betaremit-token')) {
+    return <></>;
+  }
+  if (!props.thisUser.data && !props.thisUser.waiting) {
+    props.fetchThisUser()
   }
 
   // If we receive the `productsChanged` event, refresh the product list
@@ -36,12 +37,9 @@ function PostAuthLayout(props) {
         <Router history={history}>
           <Switch>
             <Route exact path={Routes.products} component={Products} />
+
             <Route exact path={Routes.error} component={HelloComponent} />
             <Route exact path={Routes.notFound} component={HelloComponent} />
-
-            <Route exact path={Routes.login} component={Login} />
-            <Route exact path={Routes.root} component={Login} />
-            <Route exact path={Routes.register} component={Register} />
             <Redirect to={Routes.notFound} />
           </Switch>
         </Router>

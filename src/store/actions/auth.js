@@ -32,8 +32,8 @@ export const fetchThisUser = () => (dispatch) => {
     setToken(res.body.data.token);
     localStorage.setItem("betaremit-token", res.body.data.token);
   }).catch(err => {
-    dispatch(logOut());
     dispatch({ type: ActionTypes.FetchThisUserFailure, payload: null });
+    dispatch(logOut());
   });
 };
 

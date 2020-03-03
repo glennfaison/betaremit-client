@@ -6,6 +6,7 @@ import { Settings, Routes } from '../../constants';
 
 function NavBar(props) {
   return (
+    props.thisUser.data &&
     <nav className="navbar navbar-expand-md navbar-light bg-light w-100 py-3">
       <div className="container">
         <a className="navbar-brand" href=".">{Settings.AppShortName}</a>

@@ -8,8 +8,8 @@ import Register from '../pages/Register';
 import { history } from '../store';
 
 function PreAuthLayout(props) {
-  if (!!props.thisUser.data) {
-    return (<React.Fragment></React.Fragment>);
+  if (!!localStorage.getItem('betaremit-token')) {
+    return (<></>);
   }
   return (
     <Router history={history}>
