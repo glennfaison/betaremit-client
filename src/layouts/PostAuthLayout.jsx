@@ -10,7 +10,7 @@ import Products from '../pages/Products';
 import { fetchThisUser, fetchAllProducts } from '../store/actions';
 import { history } from '../store';
 
-const socket = socketIoClient(Settings.apiRoot);
+const socket = socketIoClient(Settings.apiRoot, { transports: ['websocket'] });
 
 function PostAuthLayout(props) {
   if (!localStorage.getItem('betaremit-token')) {
